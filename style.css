@@ -1,0 +1,56 @@
+
+
+.contianer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #99CC33;
+}
+
+.btn{
+    font-size: 17px;
+ padding: 0.5em 2em;
+ border: transparent;
+ box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+ background: #6ee96e;
+ color: white;
+ border-radius: 4px;
+}
+
+btn:hover{
+    background: rgb(2,0,36);
+ background: linear-gradient(90deg, rgba(212,248,212),1) 0%, rgba(rgb(42,222,42) 100%);
+}
+
+#diseases {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #diseases {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .card {
+    border: 1px solid #EB6F55;
+    border-radius: 5px;
+    padding: 16px;
+    margin: 16px;
+    width: 300px;
+    display: inline-block;
+    vertical-align: top;
+    
+}
+.card img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.card:hover{
+    box-shadow: 1px 1px 15px #99CC33;
+}
