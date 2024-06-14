@@ -255,16 +255,25 @@ function render() {
     phone: formData.get('phone'),
     diseases: formData.get('diseases'),
     image: '2.png'
-  };
+  };4
+
+  const errorMessages = validateFormData(patient);
+
+  if (errorMessages.length > 0) {
+    displayErrorMessages(errorMessages);
+    return false;
+  }
 
   // Add the patient to the array
   patients.push(patient);
+  
 
   // Save the patients to local storage
   localStorage.setItem('patients', JSON.stringify(patients));
 
   // Display the patient data in a card
   displayPatientCard(patient);
+  
 
   // Reset the form
   document.getElementById('form').reset();
@@ -272,6 +281,54 @@ function render() {
   return false;
 }
 
+function validateFormData(patient) {
+    const errorMessages = [];
+  
+    // Validate username
+    if (patient.fname.trim().indexOf(' ')!== -1) {
+      errorMessages.push('Username cannot contain spaces');
+    }
+  // Validate password
+  if (patient.password.length < 8) {
+    errorMessages.push('Password must be at least 8 characters long');
+  }
+  if (!/[A-Z]/.test(patient.password)) {
+    errorMessages.push('Password must contain at least one uppercase letter');
+  }
+  if (!/[0-9]/.test(patient.password)) {
+    errorMessages.push('Password must contain at least one number');
+  }
+  if (!/[!@#$%^&*(),.?":{}|<>]/.test(patient.password)) {
+    errorMessages.push('Password must contain at least one special character');
+  }
+  const birthdayRegex = /^\d{4}-\d{2}-\d{2}$/;
+  if (!birthdayRegex.test(patient.birthday)) {
+    errorMessages.push('Birthday must be in YYYY-MM-DD format');
+  }
+
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!emailRegex.test(patient.email)) {
+    errorMessages.push('Invalid email address');
+  }
+
+  const phoneRegex = /^07\d{9}$/;
+  if (!phoneRegex.test(patient.phone)) {
+    errorMessages.push('Phone number must be 10 digits long and start with 07');
+  }
+
+  return errorMessages;
+}
+function displayErrorMessages(errorMessages) {
+    const errorContainer = document.getElementById('error-container');
+    errorContainer.innerHTML = '';
+  
+    errorMessages.forEach((message) => {
+      const errorElement = document.createElement('p');
+      errorElement.textContent = message;
+      errorElement.style.color = 'red';
+      errorContainer.appendChild(errorElement);
+    });
+  }
 
 function displayPatientCard(patient) {
     const card = document.createElement('div');
